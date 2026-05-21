@@ -250,7 +250,7 @@ Para esto ingresaremos a MailHog y crearemos la carpeta "docker-compose.yml" y s
           external: true
 
   Una vez hecho lo anterior habilitamos los servicios con : docker compose up -d y probamos ingresando al URL del puerto en el que se habilito.
-    ![alt text](image-1.png)
+    ![alt text](image-3.png)
 ==========================================================================================================================================
 #Autor: Carlos Marquez 9:43AM 21May26
 
