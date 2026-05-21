@@ -1,0 +1,14 @@
+services:
+  web:
+    image: nginx:latest
+    container_name: web
+
+    volumes:
+      - ./index.html:/usr/share/nginx/html/index.html
+
+    networks:
+      - proxy
+
+networks:
+  proxy:
+    external: true
