@@ -107,14 +107,15 @@
   #Carpeta APP
   Se crea dentro de la carpeta de app lo siguiente:  "index.html" y "docker-compose.yml"
 
-      El archivo index.html solo tendra lo siguiente:
+El archivo index.html solo tendra lo siguiente:
 
 
         <h1>Hola desde Docker Compose 🚀 Elaborado por Carlos Marquez</h1>
         <p>Aplicación funcionando con Traefik</p>
-        
+
       
-      El archivo docker-compose.yml tendra lo siguiente:
+El archivo docker-compose.yml tendra lo siguiente:
+
         services:
           web:
             image: nginx:latest
@@ -130,7 +131,7 @@
           proxy:
             external: true
 
-    Una vez creado los archivos procedemos a dar de alta los servicios con: "docker compose up -d" y probamos llendo al URL del puerto en el cual se habilito:
+Una vez creado los archivos procedemos a dar de alta los servicios con: "docker compose up -d" y probamos llendo al URL del puerto en el cual se habilito:
       ![alt text](image.png)
 ==========================================================================================================================================
 
