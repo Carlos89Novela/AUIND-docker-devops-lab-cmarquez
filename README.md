@@ -110,8 +110,70 @@
 El archivo index.html solo tendra lo siguiente:
 
 
-        <h1>Hola desde Docker Compose 🚀 Elaborado por Carlos Marquez</h1>
-        <p>Aplicación funcionando con Traefik</p>
+        <!DOCTYPE html>
+        <html lang="es">
+        <head>
+          <meta charset="UTF-8">
+          <title>Docker + Traefik</title>
+
+          <style>
+            body {
+              margin: 0;
+              font-family: Arial, Helvetica, sans-serif;
+              height: 100vh;
+
+              /* Fondo degradado azul y morado */
+              background: linear-gradient(135deg, #2b6cb0, #6b46c1);
+
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              color: white;
+            }
+
+            .container {
+              text-align: center;
+              background: rgba(255, 255, 255, 0.1);
+              padding: 40px;
+              border-radius: 15px;
+              backdrop-filter: blur(10px);
+              box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            }
+
+            h1 {
+              font-size: 2.5rem;
+              margin-bottom: 15px;
+            }
+
+            p {
+              font-size: 1.2rem;
+              margin: 8px 0;
+            }
+
+            .highlight {
+              color: #90cdf4; /* azul claro */
+              font-weight: bold;
+            }
+          </style>
+        </head>
+
+        <body>
+
+          <div class="container">
+            <h1>🚀 Hola los saludamos el equipo de Carlos Marquez</h1>
+
+            <p>Estás dentro de <span class="highlight">Docker Compose</span></p>
+            <p>Tu aplicación está funcionando correctamente ✅</p>
+
+            <p>Utilizando <span class="highlight">Traefik</span> como Reverse Proxy</p>
+
+            <p style="margin-top: 20px;">
+              🎉 ¡Todo está configurado correctamente!
+            </p>
+          </div>
+
+        </body>
+        </html>
 
       
 El archivo docker-compose.yml tendra lo siguiente:
