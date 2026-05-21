@@ -254,9 +254,9 @@ Para esto ingresaremos a MailHog y crearemos la carpeta "docker-compose.yml" y s
 ==========================================================================================================================================
 #Autor: Carlos Marquez 9:43AM 21May26
 
-  Integración de Portainer:
+Integración de Portainer:
 
-    Para esto haremos lo que hemos estado haciendo crear dentro de la carperta de portainer el documento: "docker-compose.yml" con el siguiente bloque de codigo:
+Para esto haremos lo que hemos estado haciendo crear dentro de la carperta de portainer el documento: "docker-compose.yml" con el siguiente bloque de codigo:
 
 
       services:
@@ -277,6 +277,6 @@ Para esto ingresaremos a MailHog y crearemos la carpeta "docker-compose.yml" y s
       networks:
         proxy:
           external: true
-  Y levantamos los servicios con: "docker compose up -d" y verificamos ingresando al URL del puerto que creamos:
+Y levantamos los servicios con: "docker compose up -d" y verificamos ingresando al URL del puerto que creamos:
     ![alt text](image-2.png)
 
