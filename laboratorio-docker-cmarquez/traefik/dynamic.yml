@@ -1,0 +1,56 @@
+http:
+  routers:
+
+    mailhog:
+      rule: "PathPrefix(`/mail`)"
+      service: mailhog-service
+      entryPoints:
+        - web
+      middlewares:
+        - mailhog-strip
+      priority: 100   # 🔥 mayor prioridad
+
+    portainer:
+      rule: "PathPrefix(`/portainer`)"
+      service: portainer-service
+      entryPoints:
+        - web
+      middlewares:
+        - portainer-strip
+      priority: 90
+
+    web:
+      rule: "PathPrefix(`/`)"
+      service: web-service
+      entryPoints:
+        - web
+      priority: 1
+
+  services:
+
+    web-service:
+      loadBalancer:
+        servers:
+          - url: "http://web:80"
+
+    portainer-service:
+      loadBalancer:
+        servers:
+          - url: "http://portainer:9000"
+
+    mailhog-service:
+      loadBalancer:
+        servers:
+          - url: "http://mailhog:8025"
+
+  middlewares:
+
+    portainer-strip:
+      stripPrefix:
+        prefixes:
+          - "/portainer"
+
+    mailhog-strip:
+      stripPrefix:
+        prefixes:
+          - "/mail"

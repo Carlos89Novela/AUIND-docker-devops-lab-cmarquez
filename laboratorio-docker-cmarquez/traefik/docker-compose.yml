@@ -1,0 +1,30 @@
+services:
+
+  traefik:
+    image: traefik:v2.10
+
+    command:
+      - "--api.insecure=true"
+      - "--api.dashboard=true"
+
+      # ✅ ENTRYPOINT WEB (app)
+      - "--entrypoints.web.address=:8080"
+
+      # ✅ ENTRYPOINT TRAEFIK (dashboard)
+      - "--entrypoints.traefik.address=:8081"
+
+      - "--providers.file.directory=/etc/traefik"
+
+    ports:
+      - "8000:8080"   # app
+      - "8081:8081"   # dashboard
+
+    volumes:
+      - ./dynamic.yml:/etc/traefik/dynamic.yml
+
+    networks:
+      - proxy
+
+networks:
+  proxy:
+    external: true
