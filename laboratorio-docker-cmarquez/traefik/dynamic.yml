@@ -2,7 +2,7 @@ http:
   routers:
 
     mailhog:
-      rule: "PathPrefix(`/mail`) || PathPrefix(`/api`) || PathPrefix(`/js`) || PathPrefix(`/css`)"
+      rule: "PathPrefix(`/mail`) || PathPrefix(`/api`) || PathPrefix(`/js`) || PathPrefix(`/css`) || PathPrefix(`/images`)"
       service: mailhog-service
       entryPoints:
         - web
