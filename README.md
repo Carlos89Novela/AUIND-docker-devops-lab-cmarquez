@@ -117,4 +117,27 @@
     Una vez hecho lo anterior habilitamos los servicios con : docker compose up -d y probamos ingresando al URL del puerto en el que se habilito.
     ![alt text](image-1.png)
 ==========================================================================================================================================
+#Autor: Carlos Marquez 9:43AM 21May26
+  Integración de Portainer:
+    Para esto haremos lo que hemos estado haciendo crear dentro de la carperta de portainer el documento: "docker-compose.yml" con el siguiente bloque de codigo:
+      services:
+
+        portainer:
+          image: portainer/portainer-ce
+          container_name: portainer
+
+          volumes:
+            - /var/run/docker.sock:/var/run/docker.sock
+
+          ports:
+            - "9000:9000"   # 🔥 ACCESO DIRECTO
+
+          networks:
+            - proxy
+
+      networks:
+        proxy:
+          external: true
+  Y levantamos los servicios con: "docker compose up -d" y verificamos ingresando al URL del puerto que creamos:
+    ![alt text](image-2.png)
 
