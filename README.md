@@ -40,7 +40,7 @@
             external: true"
 
   tambien se crea el documento "dynamic.yml" dentro de la carpeta de traefik con el siguienbte bloque de codigo:
-  
+
     http:
       routers:
 
@@ -130,9 +130,14 @@
     Una vez creado los archivos procedemos a dar de alta los servicios con: "docker compose up -d" y probamos llendo al URL del puerto en el cual se habilito:
       ![alt text](image.png)
 ==========================================================================================================================================
+
 #Autor: Carlos Marquez 8:47AM 21May26
 
+#Integracion de Redis:
+
   Aqui lo que se hara es dentro de la carpeta de Redis, se generará el archivo "docker-compose.yml" con la siguiente configuración:
+
+
     services:
 
         redis:
@@ -158,7 +163,9 @@
   Una vez hecho lo anterior solo damos de alta los servicios y probamos: docker compose up -d, docker exec -it redis redis-cli y escribimos PING y nos debe de responder un cun PONG
 ==========================================================================================================================================
 #Autor: Carlos Marquez 9:18AM 21May26
-  #Integración de MailHog
+
+  #Integración de MailHog:
+
     Para esto ingresaremos a MailHog y crearemos la carpeta "docker-compose.yml" y se agregaremos el siguiente bloque de codigo:
 
       services:
@@ -180,8 +187,12 @@
     ![alt text](image-1.png)
 ==========================================================================================================================================
 #Autor: Carlos Marquez 9:43AM 21May26
+
   Integración de Portainer:
+
     Para esto haremos lo que hemos estado haciendo crear dentro de la carperta de portainer el documento: "docker-compose.yml" con el siguiente bloque de codigo:
+
+    
       services:
 
         portainer:
