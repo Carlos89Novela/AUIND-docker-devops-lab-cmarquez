@@ -39,7 +39,66 @@
           proxy:
             external: true"
 
-  tambien se crea el documento "dynamic.yml" dentro de la carpeta de traefik
+  tambien se crea el documento "dynamic.yml" dentro de la carpeta de traefik con el siguienbte bloque de codigo:
+    http:
+  routers:
+
+    
+    mailhog:
+      rule: "PathPrefix(`/mail`)"
+      service: mailhog-service
+      entryPoints:
+        - web
+      middlewares:
+        - mailhog-strip
+      priority: 100
+
+
+    portainer:
+      rule: "PathPrefix(`/portainer`)"
+      service: portainer-service
+      entryPoints:
+        - web
+      middlewares:
+        - portainer-strip
+      priority: 90
+
+    web:
+      rule: "PathPrefix(`/`)"
+      service: web-service
+      entryPoints:
+        - web
+      priority: 1
+
+  services:
+
+    web-service:
+      loadBalancer:
+        servers:
+          - url: "http://web:80"
+
+    portainer-service:
+      loadBalancer:
+        servers:
+          - url: "http://portainer:9000"
+
+    mailhog-service:
+      loadBalancer:
+        servers:
+          - url: "http://mailhog:8025"
+
+  middlewares:
+
+    portainer-strip:
+      stripPrefix:
+        prefixes:
+          - "/portainer"
+
+    mailhog-strip:
+      stripPrefix:
+        prefixes:
+          - "/mail"
+
 ==========================================================================================================================================
 
 #Autor: Carlos Marquez 8:26AM 21May26
@@ -106,6 +165,8 @@
         mailhog:
           image: mailhog/mailhog
           container_name: mailhog
+          ports:
+            - "8025:8025"
 
           networks:
             - proxy

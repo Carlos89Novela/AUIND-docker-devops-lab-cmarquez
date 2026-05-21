@@ -1,14 +1,16 @@
 http:
   routers:
 
+    
     mailhog:
-      rule: "PathPrefix(`/mail`) || PathPrefix(`/api`) || PathPrefix(`/js`) || PathPrefix(`/css`) || PathPrefix(`/images`)"
+      rule: "PathPrefix(`/mail`)"
       service: mailhog-service
       entryPoints:
         - web
       middlewares:
         - mailhog-strip
-      priority: 100   # 🔥 mayor prioridad
+      priority: 100
+
 
     portainer:
       rule: "PathPrefix(`/portainer`)"
