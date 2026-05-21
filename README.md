@@ -108,8 +108,11 @@
   Se crea dentro de la carpeta de app lo siguiente:  "index.html" y "docker-compose.yml"
 
       El archivo index.html solo tendra lo siguiente:
+
+
         <h1>Hola desde Docker Compose 🚀 Elaborado por Carlos Marquez</h1>
         <p>Aplicación funcionando con Traefik</p>
+        
       
       El archivo docker-compose.yml tendra lo siguiente:
         services:
@@ -192,7 +195,7 @@
 
     Para esto haremos lo que hemos estado haciendo crear dentro de la carperta de portainer el documento: "docker-compose.yml" con el siguiente bloque de codigo:
 
-    
+
       services:
 
         portainer:
