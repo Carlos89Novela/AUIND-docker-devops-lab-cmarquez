@@ -3,6 +3,13 @@ services:
   mailhog:
     image: mailhog/mailhog
     container_name: mailhog
+
+    
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.mailhog.rule=Host(`mail.midominio.com`)"
+      - "traefik.http.routers.mailhog.entrypoints=web"
+
     ports:
       - "8025:8025"
 

@@ -4,14 +4,26 @@ services:
     image: portainer/portainer-ce
     container_name: portainer
 
+    command: -H unix:///var/run/docker.sock
+
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
+
+    
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.portainer.rule=Host(`portainer.midominio.com`)"
+      - "traefik.http.routers.portainer.entrypoints=web"
 
     ports:
-      - "9000:9000"   # 🔥 ACCESO DIRECTO
+      - "9000:9000"
+
 
     networks:
       - proxy
+volumes:
+  portainer_data:
 
 networks:
   proxy:

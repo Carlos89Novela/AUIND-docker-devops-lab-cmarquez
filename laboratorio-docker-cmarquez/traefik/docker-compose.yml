@@ -8,7 +8,7 @@ services:
       - "--api.dashboard=true"
 
       # ✅ ENTRYPOINT WEB (app)
-      - "--entrypoints.web.address=:8080"
+      - "--entrypoints.web.address=:80"
 
       # ✅ ENTRYPOINT TRAEFIK (dashboard)
       - "--entrypoints.traefik.address=:8081"
@@ -16,7 +16,7 @@ services:
       - "--providers.file.directory=/etc/traefik"
 
     ports:
-      - "8000:8080"   # app
+      - "80:80"   # app
       - "8081:8081"   # dashboard
 
     volumes:
