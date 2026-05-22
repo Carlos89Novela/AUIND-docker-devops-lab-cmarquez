@@ -282,3 +282,83 @@ Para esto haremos lo que hemos estado haciendo crear dentro de la carperta de po
 Y levantamos los servicios con: "docker compose up -d" y verificamos ingresando al URL del puerto que creamos:
     ![alt text](image-2.png)
 
+
+==========================================================================================================================================
+
+#Autor: Carlos Márquez 8:12AM 22May26
+
+Habilitación de DNS local agregando en el archivo Hosts lo siguiente:
+  Nos dirigimos a la carpeta C:\Windows\System32\drivers\etc e identificamos el archivo Hosts, abrimos un bloc de notas como administrador y damos a archivo, abrir y nos dirigimos a la carpeta antes mencionada y abrimos el archivo, ya una vez dentro nos dirigimos hasta el final y agregamos lo siguiente:
+
+      127.0.0.1 app.midominio.com
+      127.0.0.1 mail.midominio.com
+      127.0.0.1 portainer.midominio.com
+      127.0.0.1 dashboard.midominio.com
+  
+  Una vez hayamos agregado lo anterior, abriremos el archivo "docker-compose.yml" de cada una de las carpetas y agregamos lo siguiente:
+
+    #APP:
+      
+      labels:
+        - "traefik.enable=true"
+        - "traefik.http.routers.web.rule=Host(`app.midominio.com`)"
+        - "traefik.http.routers.web.entrypoints=web"
+
+    #TRAEFIK:
+
+      
+      command:
+        - "--api.dashboard=true"
+        - "--api.insecure=true"
+
+        - "--entrypoints.web.address=:80"
+
+        - "--providers.docker=true"
+        - "--providers.docker.exposedbydefault=false"
+
+    #MAILHOG:
+
+      
+      labels:
+        - "traefik.enable=true"
+        - "traefik.http.routers.mailhog.rule=Host(`mail.midominio.com`)"
+        - "traefik.http.routers.mailhog.entrypoints=web"
+
+    #PORTAINER:
+
+      
+      labels:
+        - "traefik.enable=true"
+        - "traefik.http.routers.portainer.rule=Host(`portainer.midominio.com`)"
+        - "traefik.http.routers.portainer.entrypoints=web"
+
+  Se reinicia todo yo lo hago de la siguiente manera:
+
+      cd ../mailhog
+      docker compose down -v
+      docker compose up -d
+
+      cd ../portainer
+      docker compose down -v
+      docker compose up -d
+
+      cd ../app
+      docker compose down -v
+      docker compose up -d
+
+      cd ../traefik
+      docker compose down -v
+      docker compose up -d
+
+y una vez hecho lo anterior se prueba con :
+
+    http://app.midominio.com
+        ![alt text](image-6.png)
+    http://mail.midominio.com:8025
+        ![alt text](image-5.png)
+    http://portainer.dominio.com:9000
+        ![alt text](image-4.png)
+    http://dashboard.midominio.com:8081
+        ![alt text](image-7.png)
+        ![alt text](image-8.png)
+#Aqui termina la practica
