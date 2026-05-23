@@ -618,19 +618,25 @@ y una vez hecho lo anterior se prueba con :
 
 
 #WEB:
+
 ![alt text](image-14.png)
 #DASHBOARD:
+
 ![alt text](image-15.png)
 #MAILHOG:
 
 ![alt text](image-16.png)
 #PORTAINER:
+
 ![alt text](image-17.png)
 #ADMINER:
+
 ![alt text](image-18.png)
 #phpMyAdmin:
+
 ![alt text](image-19.png)
 #WordPress:
+
 ![alt text](image-20.png)
 ============================================================================
 #Autor: Carlos Marquez 07:05PM 22May26
