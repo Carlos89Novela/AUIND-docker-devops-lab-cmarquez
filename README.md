@@ -617,6 +617,20 @@ y una vez hecho lo anterior se prueba con :
           keyFile: /certs/key.pem
 
 
+#WEB:
+![alt text](image-14.png)
+#DASHBOARD:
+![alt text](image-15.png)
+#MAILHOG:
+![alt text](image-16.png)
+#PORTAINER:
+![alt text](image-17.png)
+#ADMINER:
+![alt text](image-18.png)
+#phpMyAdmin:
+![alt text](image-19.png)
+#WordPress:
+![alt text](image-20.png)
 ============================================================================
 #Autor: Carlos Marquez 07:05PM 22May26
 
@@ -751,6 +765,12 @@ y una vez hecho lo anterior se prueba con :
       </body>
       </html>
 
+#WEB1
+![alt text](image-11.png)
+#WEB2
+![alt text](image-12.png)
+#WEB3
+![alt text](image-13.png)
 ============================================================================
 #Autor: Carlos Marquez 07:12PM 22May26
 
@@ -781,4 +801,6 @@ y una vez hecho lo anterior se prueba con :
       proxy:
         external: true
       wordpress:
+
+![alt text](image-10.png)
 ============================================================================
