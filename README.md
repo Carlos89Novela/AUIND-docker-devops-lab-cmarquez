@@ -752,3 +752,33 @@ y una vez hecho lo anterior se prueba con :
       </html>
 
 ============================================================================
+#Autor: Carlos Marquez 07:12PM 22May26
+
+#Se integra WordPress, se crea una carpeta con un archivo adentro docker-composer.yml con el siguiente bloque de codigo:
+
+
+    services:
+      wordpress:
+        image: wordpress:latest
+        container_name: wordpress
+
+        environment:
+          WORDPRESS_DB_HOST: mysql:3306
+          WORDPRESS_DB_NAME: wordpress
+          WORDPRESS_DB_USER: wpuser
+          WORDPRESS_DB_PASSWORD: wp123
+
+        volumes:
+          - wordpress_data:/var/www/html
+
+        networks:
+          - proxy
+
+    volumes:
+      wordpress_data:
+
+    networks:
+      proxy:
+        external: true
+      wordpress:
+============================================================================
