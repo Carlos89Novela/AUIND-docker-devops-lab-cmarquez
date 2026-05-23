@@ -622,6 +622,7 @@ y una vez hecho lo anterior se prueba con :
 #DASHBOARD:
 ![alt text](image-15.png)
 #MAILHOG:
+
 ![alt text](image-16.png)
 #PORTAINER:
 ![alt text](image-17.png)
