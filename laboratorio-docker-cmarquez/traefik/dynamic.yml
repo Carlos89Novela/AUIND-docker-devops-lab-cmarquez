@@ -1,58 +1,88 @@
 http:
   routers:
-
-    
-    mailhog:
-      rule: "PathPrefix(`/mail`)"
-      service: mailhog-service
+    web:
+      rule: "Host(`app.midominio.com`)"
       entryPoints:
-        - web
-      middlewares:
-        - mailhog-strip
-      priority: 100
+        - websecure
+      service: web-service
+      tls: {}
 
+    mailhog:
+      rule: "Host(`mail.midominio.com`)"
+      entryPoints:
+        - websecure
+      service: mailhog-service
+      tls: {}
 
     portainer:
-      rule: "PathPrefix(`/portainer`)"
+      rule: "Host(`portainer.midominio.com`)"
+      entryPoints:
+        - websecure
       service: portainer-service
-      entryPoints:
-        - web
-      middlewares:
-        - portainer-strip
-      priority: 90
+      tls: {}
 
-    web:
-      rule: "PathPrefix(`/`)"
-      service: web-service
+    adminer:
+      rule: "Host(`adminer.midominio.com`)"
       entryPoints:
-        - web
-      priority: 1
+        - websecure
+      service: adminer-service
+      tls: {}
+
+    phpmyadmin:
+      rule: "Host(`phpmyadmin.midominio.com`)"
+      entryPoints:
+        - websecure
+      service: phpmyadmin-service
+      tls: {}
+
+    wordpress:
+      rule: "Host(`blog.midominio.com`)"
+      entryPoints:
+        - websecure
+      service: wordpress-service
+      tls: {}
+
+    dashboard:
+      rule: "Host(`dashboard.midominio.com`)"
+      entryPoints:
+        - websecure
+      service: api@internal
+      tls: {}
 
   services:
-
     web-service:
       loadBalancer:
         servers:
-          - url: "http://web:80"
-
-    portainer-service:
-      loadBalancer:
-        servers:
-          - url: "http://portainer:9000"
+          - url: "http://web1:80"
+          - url: "http://web2:80"
+          - url: "http://web3:80"
 
     mailhog-service:
       loadBalancer:
         servers:
           - url: "http://mailhog:8025"
 
-  middlewares:
+    portainer-service:
+      loadBalancer:
+        servers:
+          - url: "http://portainer:9000"
 
-    portainer-strip:
-      stripPrefix:
-        prefixes:
-          - "/portainer"
+    adminer-service:
+      loadBalancer:
+        servers:
+          - url: "http://adminer:8080"
 
-    mailhog-strip:
-      stripPrefix:
-        prefixes:
-          - "/mail"
+    phpmyadmin-service:
+      loadBalancer:
+        servers:
+          - url: "http://phpmyadmin:80"
+
+    wordpress-service:
+      loadBalancer:
+        servers:
+          - url: "http://wordpress:80"
+
+tls:
+  certificates:
+    - certFile: /certs/cert.pem
+      keyFile: /certs/key.pem

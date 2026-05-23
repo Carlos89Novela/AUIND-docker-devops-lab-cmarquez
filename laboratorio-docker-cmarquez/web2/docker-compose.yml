@@ -1,0 +1,14 @@
+services:
+  web2:
+    image: nginx:latest
+    container_name: web2
+
+    volumes:
+      - ./index.html:/usr/share/nginx/html/index.html:ro
+
+    networks:
+      - proxy
+
+networks:
+  proxy:
+    external: true

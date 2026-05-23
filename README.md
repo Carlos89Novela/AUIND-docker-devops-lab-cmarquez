@@ -366,5 +366,67 @@ y una vez hecho lo anterior se prueba con :
     http://dashboard.midominio.com:8081
     
   ![alt text](image-7.png)
-  
+
+==========================================================================================================================================
+#Autor: Carlos Marquez 10:38AM 22May26
+
+#Habilitación de Certificados con MKCERT y configuración de TLS a WEB, TREAFIK, MAILHOG Y PORTAINER:
+
+  Primero descargamos de la pagina https://github.com/FiloSottile/mkcert/teleases en mi caso es en windows y descargue el archivo mkcert-v.1.4.4-windows-amd64.exe, una vez hecho esto renombramos a mkcert.exe y creamos una carpeta en C:/ llamado mkcert y lo movemos dentro, escribimos "cmd" en la barra donde nos dice la ubicacion del archivo, una vez que se habra el simbolo de sistema escribimos el comando: "mkcert.exe --install" ya instalado ejecutamos el comando "mkcert.exe app.midominio.com mail.midominio.com portainer.midominio.com", despues ejecutamos lo comandos: "app.midominio.com+2.pem" y "app.midominio.com+2-key.pem" para que se nos generen los certificados, los renombramos como "cert.pem y "key.pem", dentro de la carpeta de traefik agregaremos otra carpeta llamada cert y dentro de ella movemos los certificados recien hechos:
+
+    #TRAEFIk:
+      Dentro de Traefikañadiremos lo siguiente dentro del apartado command:
+
+        
+        - "--entrypoints.websecure.address=:443"
+        - "--providers.docker=true"
+        - "--providers.docker.exposedbydefault=false"
+
+        Ports:
+          -"443:443"
+
+        volumes:
+          
+          - /var/run/docker.sock:/var/run/docker.sock
+          - ./dynamic.yml:/etc/traefik/dynamic.yml
+          - ./certs:/certs
+
+      Sin salir de la carpeta de TRAEFIK abrimos el archivo dynamic.yml y agregamos lo siguiente hasta el final:
+
+          tls:
+            certificates:
+              -certFile: /certs/cert.pem
+              -keyFile: /certs/key.pem
+    
+    #APP:
+      Abrimos el archivo "docker-compose.yml" de la carpeta APP y agregamos lo siguiente:
+
+            - "traefik.http.routers.web.rule=Host(`app.midominio.com`)"
+            - "traefik.http.routers.web.entrypoints=websecure"
+            - "traefik.http.routers.web.tls=true"
+
+    #MAILHOG:
+      Abrimos el archivo "docker-compose.yml" de la carpeta MAILHOG y agregamos lo siguiente:
+
+            - "traefik.http.routers.web.rule=Host(`mail.midominio.com`)"
+            - "traefik.http.routers.web.entrypoints=websecure"
+            - "traefik.http.routers.web.tls=true"
+
+    #PORTAINER:
+      Abrimos el archivo "docker-compose.yml" de la carpeta PORTAINER y agregamos lo siguiente:
+
+            - "traefik.http.routers.web.rule=Host(`portainer.midominio.com`)"
+            - "traefik.http.routers.web.entrypoints=websecure"
+            - "traefik.http.routers.web.tls=true"
+
+  Una vez hecho todo lo anterior Reiniciamos todo, como ya se ha explicado anteriormente, dentro de cada carpeta ejecutamos en terminar los comandos:
+
+        docker compose down -v
+        docker compose up -d
+
+  Y probamos entrando a cada uno de las paginas agregando https a cada uno:
+
+  ![alt text](image-9.png)
+
+==========================================================================================================================================
 #Aqui termina la practica

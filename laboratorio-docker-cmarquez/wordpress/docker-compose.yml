@@ -1,0 +1,24 @@
+services:
+  wordpress:
+    image: wordpress:latest
+    container_name: wordpress
+
+    environment:
+      WORDPRESS_DB_HOST: mysql:3306
+      WORDPRESS_DB_NAME: wordpress
+      WORDPRESS_DB_USER: wpuser
+      WORDPRESS_DB_PASSWORD: wp123
+
+    volumes:
+      - wordpress_data:/var/www/html
+
+    networks:
+      - proxy
+
+volumes:
+  wordpress_data:
+
+networks:
+  proxy:
+    external: true
+  wordpress:

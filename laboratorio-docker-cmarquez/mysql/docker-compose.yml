@@ -1,0 +1,23 @@
+services:
+  mysql:
+    image: mysql:8
+    container_name: mysql
+
+    environment:
+      MYSQL_ROOT_PASSWORD: root123
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wpuser
+      MYSQL_PASSWORD: wp123
+
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+    networks:
+      - proxy
+
+volumes:
+  mysql_data:
+
+networks:
+  proxy:
+    external: true
