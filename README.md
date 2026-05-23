@@ -618,3 +618,137 @@ y una vez hecho lo anterior se prueba con :
 
 
 ============================================================================
+#Autor: Carlos Marquez 07:05PM 22May26
+
+#Se agrega el Balanceo de carga y para esto se agregan 3 carpetas adicionales las cuales serán WEB1, WEB2 y WEB3 y en cada una de ellas se les agrega el archivo docker-compose.yml y en las cuales quedan de la siguiente manera:
+
+
+#WEB1:
+
+
+    services:
+      web1:
+        image: nginx:latest
+        container_name: web1
+
+        volumes:
+          - ./index.html:/usr/share/nginx/html/index.html:ro
+
+        networks:
+          - proxy
+
+    networks:
+      proxy:
+        external: true
+
+
+#WEB2:
+
+
+    services:
+      web2:
+        image: nginx:latest
+        container_name: web2
+
+        volumes:
+          - ./index.html:/usr/share/nginx/html/index.html:ro
+
+        networks:
+          - proxy
+
+    networks:
+      proxy:
+        external: true
+
+
+#WEB3:
+
+
+    services:
+      web3:
+        image: nginx:latest
+        container_name: web3
+
+        volumes:
+          - ./index.html:/usr/share/nginx/html/index.html:ro
+
+        networks:
+          - proxy
+
+    networks:
+      proxy:
+        external: true 
+
+#Dentro de cada una de esas mismas carpetas aparte del archivo anterior agregaremos un archivo index.html en cada carpeta con el codigo siguiente en los cuales solo cambian los titulos y la leyendas de web1, web2 y web3 asi como los colores:
+
+
+      <!DOCTYPE html>
+      <html lang="es">
+      <head>
+        <meta charset="UTF-8">
+        <title>Nginx 1.1 Docker + Traefik</title>
+
+        <style>
+          body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            height: 100vh;
+
+            /* Fondo degradado azul a morado */
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+          }
+
+          .container {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 40px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+          }
+
+          h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+          }
+
+          p {
+            font-size: 1.2rem;
+            margin: 8px 0;
+          }
+
+          .highlight {
+            color: #ddd6fe;
+            font-weight: bold;
+          }
+        </style>
+      </head>
+
+      <body>
+
+        <div class="container">
+          <h1>🚀 Hola los saludamos el equipo de Carlos Marquez</h1>
+
+          <p>Estás dentro de <span class="highlight">Docker Compose</span></p>
+          <p>Tu aplicación está funcionando correctamente ✅</p>
+
+          <p>Utilizando <span class="highlight">Traefik</span> como Reverse Proxy</p>
+
+          <p style="margin-top: 20px;">
+            🎉 ¡Todo está configurado correctamente!
+          </p>
+
+          <p style="margin-top: 20px;">
+            🔹 <span class="highlight">Nginx 1.1 - Web 1.1</span>
+          </p>
+        </div>
+
+      </body>
+      </html>
+
+============================================================================
