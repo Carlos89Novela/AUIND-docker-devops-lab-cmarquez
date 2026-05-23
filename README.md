@@ -429,4 +429,192 @@ y una vez hecho lo anterior se prueba con :
   ![alt text](image-9.png)
 
 ==========================================================================================================================================
-#Aqui termina la practica
+#Autor: Carlos Marquez 06:54PM 22May26
+
+#Se agrega POSTGRES, ADMINER, MYSQL y phpMYADMIN
+
+#Se crean las carpetas de cada uno y dentro de cada una de las carpetas se agregan los archivos docker-compose.yml con los siguientes bloques de codigos respectivamente:
+
+#POSTGRES:
+
+      services:
+        postgres:
+          image: postgres:16
+          container_name: postgres
+
+          environment:
+            POSTGRES_DB: laboratorio
+            POSTGRES_USER: admin
+            POSTGRES_PASSWORD: admin123
+
+          volumes:
+            - postgres_data:/var/lib/postgresql/data
+
+          networks:
+            - proxy
+
+      volumes:
+        postgres_data:
+
+      networks:
+        proxy:
+          external: true
+
+#ADMINER:
+
+
+    services:
+      adminer:
+        image: adminer:latest
+        container_name: adminer
+
+        networks:
+          - proxy
+
+    networks:
+      proxy:
+        external: true
+
+
+#MYSQL:
+
+
+      services:
+        mysql:
+          image: mysql:8
+          container_name: mysql
+
+          environment:
+            MYSQL_ROOT_PASSWORD: root123
+            MYSQL_DATABASE: wordpress
+            MYSQL_USER: wpuser
+            MYSQL_PASSWORD: wp123
+
+          volumes:
+            - mysql_data:/var/lib/mysql
+
+          networks:
+            - proxy
+
+      volumes:
+        mysql_data:
+
+      networks:
+        proxy:
+          external: true
+
+
+#phpMYADMIN
+
+
+    services:
+      phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+        container_name: phpmyadmin
+
+        environment:
+          PMA_HOST: mysql
+          PMA_PORT: 3306
+
+        networks:
+          - proxy
+
+    networks:
+      proxy:
+        external: true
+
+
+#Modificamos el archivo docker-compose.yml de la carpeta de TRAEFIK y queda de la siguiente manera:
+
+
+    http:
+      routers:
+        web:
+          rule: "Host(`app.midominio.com`)"
+          entryPoints:
+            - websecure
+          service: web-service
+          tls: {}
+
+        mailhog:
+          rule: "Host(`mail.midominio.com`)"
+          entryPoints:
+            - websecure
+          service: mailhog-service
+          tls: {}
+
+        portainer:
+          rule: "Host(`portainer.midominio.com`)"
+          entryPoints:
+            - websecure
+          service: portainer-service
+          tls: {}
+
+        adminer:
+          rule: "Host(`adminer.midominio.com`)"
+          entryPoints:
+            - websecure
+          service: adminer-service
+          tls: {}
+
+        phpmyadmin:
+          rule: "Host(`phpmyadmin.midominio.com`)"
+          entryPoints:
+            - websecure
+          service: phpmyadmin-service
+          tls: {}
+
+        wordpress:
+          rule: "Host(`blog.midominio.com`)"
+          entryPoints:
+            - websecure
+          service: wordpress-service
+          tls: {}
+
+        dashboard:
+          rule: "Host(`dashboard.midominio.com`)"
+          entryPoints:
+            - websecure
+          service: api@internal
+          tls: {}
+
+      services:
+        web-service:
+          loadBalancer:
+            servers:
+              - url: "http://web1:80"
+              - url: "http://web2:80"
+              - url: "http://web3:80"
+
+        mailhog-service:
+          loadBalancer:
+            servers:
+              - url: "http://mailhog:8025"
+
+        portainer-service:
+          loadBalancer:
+            servers:
+              - url: "http://portainer:9000"
+
+        adminer-service:
+          loadBalancer:
+            servers:
+              - url: "http://adminer:8080"
+
+        phpmyadmin-service:
+          loadBalancer:
+            servers:
+              - url: "http://phpmyadmin:80"
+
+        wordpress-service:
+          loadBalancer:
+            servers:
+              - url: "http://wordpress:80"
+
+    tls:
+      certificates:
+        - certFile: /certs/cert.pem
+          keyFile: /certs/key.pem
+
+
+============================================================================
